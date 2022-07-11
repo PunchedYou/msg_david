@@ -25,12 +25,6 @@ class Fach {
     public int getNote() {
         return note;
     }
-
-    public void manuell(String name, boolean lk, int note) {
-        this.lk = lk;
-        this.fachname = name;
-        this.note = note;
-    }
 }
 
 public class Zeugnis {
@@ -38,6 +32,7 @@ public class Zeugnis {
     private String datum;
     private int fehltage;
     private int entschuldigt;
+    private int unentschuldigt;
 
     public Zeugnis() {
         setSchueler();
@@ -48,6 +43,8 @@ public class Zeugnis {
 
         System.out.println("Anzahl davon Entschuldigt: ");
         entschuldigt = Integer.parseInt(Main.sc.nextLine());
+
+        unentschuldigt = fehltage - entschuldigt;
     }
 
     // Getter
@@ -66,6 +63,10 @@ public class Zeugnis {
 
     public int getEntschuldigt() {
         return entschuldigt;
+    }
+
+    public int getUnentschuldigt() {
+        return unentschuldigt;
     }
 
     // Setter
