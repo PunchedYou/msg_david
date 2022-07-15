@@ -4,8 +4,10 @@ import java.util.regex.Pattern;
 public class Eingabe {
     public Fach[] datenEinlesen() {
         Fach[] arr = new Fach[8];
+        Dictonary s = new Dictonary();
         for (int i = 0; i < 8; i++) {
             Fach f = new Fach(inputFach(), inputLk(), inputNote());
+            f.setKategorie(s.getNumber(f.getName()));
             arr[i] = f;
         }
         return arr;
@@ -33,15 +35,29 @@ public class Eingabe {
         do {
             System.out.println("Gebe die Note des Fachs ein: ");
             note = Integer.parseInt(Main.sc.nextLine());
-        } while (!(note >= 0 && note <= 15));
+        } while (!(testNote(note)));
         return note;
     }
 
     // Prüfung
 
     private boolean testFach(String fach) {
-        Pattern pattern = Pattern.compile("[a-zA-Z]+");
+        Pattern pattern = Pattern.compile("[a-zA-Z]{1,20}");
         Matcher matcher = pattern.matcher(fach);
-        return matcher.find();
+        if (matcher.find()) {
+            return true;
+        } else {
+            System.out.println("--- Syntax Error: Bitte versuchnte es erneut.");
+            return false;
+        }
+    }
+
+    public boolean testNote(int note) {
+        if (note >= 0 && note <= 15) {
+            return true;
+        } else {
+            System.out.println("--- Syntax Error: Bitte versuche es erneut.");
+            return false;
+        }
     }
 }

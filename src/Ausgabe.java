@@ -6,6 +6,10 @@ public class Ausgabe {
     private double schnitt;
     private boolean versetzung;
 
+    public Ausgabe() {
+
+    }
+
     public double berechneSchnitt(Fach[] faecher) {
         int ges = 0;
         int zaehler = 0;
@@ -29,7 +33,7 @@ public class Ausgabe {
         return schnitt;
     }
 
-    public void konsoleAusgabe(Zeugnis z, Fach[] faecher) {
+    public void konsolenAusgabe(Zeugnis z, Fach[] faecher) {
         System.out.println("Name des Schülers: " + z.getSchueler());
         System.out.println("Zeugnisausstellung: " + z.getDatum());
         System.out.println("Fehltage: " + z.getFehltage());
@@ -52,16 +56,24 @@ public class Ausgabe {
         }
     }
 
-    public void write(Zeugnis z, Fach[] faecher) {
+    public void dateiAusgabe(Zeugnis z, Fach[] faecher) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Zeugnis.txt"))) {
             writer.write("Name des Schulers: " + z.getSchueler() + "\n");
             writer.write("Zeugnisausstellung: " + z.getDatum() + "\n\n");
 
             writer.write("Fehltage: " + z.getFehltage() + "\n");
-            writer.write("Unentschuldigt : " + z.getUnentschuldigt() + "\n\n");
+            writer.write("davon unentschuldigt: " + z.getUnentschuldigt() + "\n\n");
 
-            for (int i = 0; i < 8; i++) {
-                writer.write(faecher[i].getName() + ": " + faecher[i].getNote() + "\n");
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (faecher[j].getKatergorie() == i) {
+                        if (faecher[j].getLk()) {
+                            writer.write(faecher[j].getName() + "(LK): " + faecher[j].getNote() + "\n");
+                        } else {
+                            writer.write(faecher[j].getName() + ": " + faecher[j].getNote() + "\n");
+                        }
+                    }
+                }
             }
 
             writer.write("\nNotendurchschnitt: " + schnitt + "\n\n");
@@ -81,4 +93,5 @@ public class Ausgabe {
 
         System.out.println("\nZeugnis.txt erfolgreich erstellt.");
     }
+
 }

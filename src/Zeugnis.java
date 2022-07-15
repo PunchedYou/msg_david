@@ -7,6 +7,7 @@ class Fach {
     private boolean lk;
     private String fachname;
     private int note;
+    private int kategorie;
 
     public Fach(String name, boolean lk, int note) {
         this.lk = lk;
@@ -24,6 +25,14 @@ class Fach {
 
     public int getNote() {
         return note;
+    }
+
+    public int getKatergorie() {
+        return kategorie;
+    }
+
+    public void setKategorie(int n) {
+        this.kategorie = n;
     }
 }
 
@@ -94,7 +103,12 @@ public class Zeugnis {
     private boolean testSchueler(String name) {
         Pattern pattern = Pattern.compile("^[a-zäöüß \\-]+$", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         Matcher matcher = pattern.matcher(name);
-        return matcher.find();
+        if (matcher.find()) {
+            return true;
+        } else {
+            System.out.println("--- Syntax Error: Bitte versuche es erneut.");
+            return false;
+        }
     }
 
     private boolean testDatum(String datum) {
@@ -104,6 +118,7 @@ public class Zeugnis {
             df.parse(datum);
             return true;
         } catch (ParseException e) {
+            System.out.println("--- Syntax Error: Bitte versuche es erneut.");
             return false;
         }
     }

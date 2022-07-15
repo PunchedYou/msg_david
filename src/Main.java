@@ -26,8 +26,8 @@ public class Main {
 
         Ausgabe a = new Ausgabe();
         a.berechneSchnitt(faecher);
-        a.konsoleAusgabe(zeugnis, faecher);
-        a.write(zeugnis, faecher);
+        a.konsolenAusgabe(zeugnis, faecher);
+        a.dateiAusgabe(zeugnis, faecher);
 
         sc.close();
     }
